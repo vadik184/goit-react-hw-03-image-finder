@@ -1,12 +1,18 @@
-import React, { Component } from 'react';
-import { GalleryItemstyled } from 'components/ImageGalleryItem/ImageGalleryItemStyle';
+import React from 'react';
+import {
+  GalleryItemstyled,
+  ImageGalleryImg,
+} from 'components/ImageGalleryItem/ImageGalleryItemStyle';
 
-export class ImageGalleryItem extends Component {
-  render() {
-    return (
-      <GalleryItemstyled>
-        <img src="" alt="" />
-      </GalleryItemstyled>
-    );
-  }
-}
+export const ImageGalleryItem = ({ image, onClick }) => {
+  return (
+    <GalleryItemstyled>
+      <ImageGalleryImg
+        src={image.webformatURL}
+        alt={image.tags}
+        id={image.id}
+        onClick={() => onClick(image.webformatURL)}
+      />
+    </GalleryItemstyled>
+  );
+};
