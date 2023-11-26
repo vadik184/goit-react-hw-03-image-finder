@@ -3,7 +3,7 @@ import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { StyledApp } from 'components/AppStyle';
 import { LoadMoreBtn } from 'components/Button/Button';
-import { findImages } from 'components/Api/pixabay';
+import { getImages } from 'components/Api/pixabay';
 import { Loader } from 'components/Loader/Loader';
 import { Modal } from 'components/Modal/Modal';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
@@ -29,7 +29,7 @@ export class App extends Component {
 
     if (query !== prevState.query || page !== prevState.page) {
       this.setState({ isLoading: true, isLoadMore: false });
-      findImages(this.state)
+      getImages(this.state)
         .then(({ hits: photos, totalHits, hits }) => {
           if (!photos.length) {
             return Notify.failure(
