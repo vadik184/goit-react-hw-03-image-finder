@@ -1,32 +1,32 @@
-import React, { Component } from 'react';
-import { Overlay } from 'components/Modal/ModalStyled';
+import { Component } from 'react';
+import { StyledModal, StyledImg } from 'components/Modal/ModalStyled';
 
 export class Modal extends Component {
-  handleKeyDown = e => {
-    if (e.code === 'Escape') {
+  handleKeyDown = event => {
+    if (event.code === 'Escape') {
       this.props.closeModal();
     }
   };
+
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyDown);
   }
+
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyDown);
   }
 
-  handleClick = e => {
-    if (e.target === e.currentTarget) {
+  handleClick = event => {
+    if (event.target === event.currentTarget) {
       this.props.closeModal();
     }
   };
 
   render() {
     return (
-      <Overlay onClick={this.handleClick}>
-        {/* <div class="modal"> */}
-        <img src={this.props.url} alt="modal_img" />
-        {/* </div> */}
-      </Overlay>
+      <StyledModal onClick={this.handleClick}>
+        <StyledImg src={this.props.url} alt="modal_img" />
+      </StyledModal>
     );
   }
 }

@@ -1,61 +1,55 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import {
   StyledHeader,
   StyledForm,
   StyledformBtn,
+  ButtonLable,
   StyledInput,
 } from 'components/Searchbar/SearchbarStyled';
-import { IoSearchOutline } from 'react-icons/io5';
-
-export const paramsForNotify = {
-  position: 'center-center',
-  timeout: 3000,
-  width: '400px',
-  fontSize: '24px',
-};
 
 export class Searchbar extends Component {
   state = {
-    query: '',
-  };
-  handleChange = e => {
-    this.setState({ query: e.target.value });
+    q: '',
+    error: '',
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
+  handleChange = evt => {
+    this.setState({ q: evt.target.value, error: '' });
+  };
 
-    if (this.state.query.trim() === '') {
-      Notify.info('Enter your request, please!', paramsForNotify);
+  handleSubmit = evt => {
+    evt.preventDefault();
+
+    const { q } = this.state;
+
+    if (q.trim() === '') {
+      this.setState({ error: 'Please, enter query' });
       return;
     }
-    this.props.onSubmit(this.state.query);
+
+    this.props.onSubmit(q);
   };
 
   render() {
-    const { value } = this.state;
+    const { error } = this.state;
+
     return (
       <StyledHeader>
-        <StyledForm>
-          <StyledformBtn type="submit" onSubmit={this.handleSubmit}>
-            <IoSearchOutline size="24" />
+        <StyledForm onSubmit={this.handleSubmit}>
+          <StyledformBtn type="submit">
+            <ButtonLable>search</ButtonLable>
           </StyledformBtn>
-
           <StyledInput
+            onChange={this.handleChange}
+            placeholder="search"
+            name="search"
             type="text"
             autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-            value={value}
-            onChange={this.handleChange}
+            defaultValue={this.state.q}
           />
         </StyledForm>
+        {error && <h3 className="error">{error}</h3>}
       </StyledHeader>
     );
   }
 }
-Searchbar.propType = {
-  onSubmit: PropTypes.func.isRequired,
-};

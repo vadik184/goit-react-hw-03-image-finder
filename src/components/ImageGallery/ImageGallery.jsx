@@ -5,7 +5,7 @@ export const ImageGallery = ({ images, openModal }) => {
   return (
     <GalleryList>
       {images.map(image => (
-        <ImageGalleryItem key={image.id} image={image} onClick={openModal} />
+        <ImageGalleryItem image={image} key={image.id} onClick={openModal} />
       ))}
     </GalleryList>
   );

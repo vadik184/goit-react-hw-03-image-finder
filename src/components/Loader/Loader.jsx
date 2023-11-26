@@ -1,15 +1,15 @@
 import { RotatingLines } from 'react-loader-spinner';
-import { WrapperLoader } from 'components/Loader/LoaderStyled';
+import { SpinerStyled } from 'components/Loader/LoaderStyled';
 export const Loader = () => {
   return (
-    <WrapperLoader>
+    <SpinerStyled>
       <RotatingLines
-        strokeColor="grey"
+        strokeColor="#3f51b5"
         strokeWidth="5"
         animationDuration="0.75"
         width="96"
         visible={true}
       />
-    </WrapperLoader>
+    </SpinerStyled>
   );
 };
