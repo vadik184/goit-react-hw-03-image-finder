@@ -3,14 +3,21 @@ import {
   StyledHeader,
   StyledForm,
   StyledformBtn,
-  ButtonLable,
   StyledInput,
 } from 'components/Searchbar/SearchbarStyled';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
+import { GoSearch } from 'react-icons/go';
+
+export const paramsForNotify = {
+  position: 'center-center',
+  timeout: 3000,
+  width: '400px',
+  fontSize: '24px',
+};
 export class Searchbar extends Component {
   state = {
     q: '',
-    error: '',
   };
 
   handleChange = evt => {
@@ -23,7 +30,7 @@ export class Searchbar extends Component {
     const { q } = this.state;
 
     if (q.trim() === '') {
-      this.setState({ error: 'Please, enter query' });
+      Notify.info('Enter your request, please!', paramsForNotify);
       return;
     }
 
@@ -31,24 +38,22 @@ export class Searchbar extends Component {
   };
 
   render() {
-    const { error } = this.state;
-
     return (
       <StyledHeader>
         <StyledForm onSubmit={this.handleSubmit}>
           <StyledformBtn type="submit">
-            <ButtonLable>search</ButtonLable>
+            <GoSearch size="24" />
           </StyledformBtn>
           <StyledInput
-            onChange={this.handleChange}
-            placeholder="search"
             name="search"
             type="text"
+            placeholder="search"
             autoComplete="off"
+            autoFocus
             defaultValue={this.state.q}
+            onChange={this.handleChange}
           />
         </StyledForm>
-        {error && <h3 className="error">{error}</h3>}
       </StyledHeader>
     );
   }
